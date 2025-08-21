@@ -1,0 +1,62 @@
+{
+  "manifest_version": 3,
+  "name": "Segnalibro Digitale",
+  "version": "1.0.0",
+  "description": "Crea ancore personalizzate nelle pagine web per navigazione rapida. Ideale per chat AI (ChatGPT, Claude, Gemini), documenti tecnici, articoli lunghi e pagine con indici. Usa Ctrl+M per impostare l'ancora e Ctrl+J per tornarci.",
+  
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  
+  "background": {
+    "service_worker": "background.js"
+  },
+  
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_end"
+    }
+  ],
+  
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Segnalibro Digitale",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  
+  "commands": {
+    "set-bookmark": {
+      "suggested_key": {
+        "default": "Ctrl+M"
+      },
+      "description": "Imposta segnalibro nella posizione corrente"
+    },
+    "go-to-bookmark": {
+      "suggested_key": {
+        "default": "Ctrl+J"
+      },
+      "description": "Vai al segnalibro salvato"
+    }
+  }
+}

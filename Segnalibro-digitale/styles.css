@@ -1,0 +1,146 @@
+/* Segnalibro Digitale - Styles */
+
+/* Indicatore visuale del segnalibro */
+#digital-bookmark-indicator {
+  position: absolute !important;
+  left: 10px !important;
+  z-index: 10000 !important;
+  pointer-events: none !important;
+  transition: opacity 0.3s ease !important;
+}
+
+#digital-bookmark-indicator .bookmark-line {
+  width: 4px !important;
+  height: 20px !important;
+  background: linear-gradient(45deg, #ff6b6b, #ee5a24) !important;
+  border-radius: 2px !important;
+  box-shadow: 0 0 10px rgba(255, 107, 107, 0.5) !important;
+  animation: pulse 2s infinite !important;
+}
+
+#digital-bookmark-indicator .bookmark-label {
+  background: linear-gradient(45deg, #ff6b6b, #ee5a24) !important;
+  color: white !important;
+  padding: 4px 8px !important;
+  border-radius: 4px !important;
+  font-size: 11px !important;
+  font-weight: bold !important;
+  margin-top: 4px !important;
+  white-space: nowrap !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+#digital-bookmark-indicator.fade-out {
+  opacity: 0 !important;
+}
+
+/* Indicatore di ripristino */
+.bookmark-indicator-restore {
+  background: rgba(0, 0, 0, 0.8) !important;
+  color: white !important;
+  padding: 8px 12px !important;
+  border-radius: 6px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  animation: slideInFromRight 0.3s ease-out !important;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+  z-index: 10001 !important;
+}
+
+/* Notifiche */
+.digital-bookmark-notification {
+  position: fixed !important;
+  top: 20px !important;
+  right: 20px !important;
+  padding: 12px 16px !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  z-index: 10001 !important;
+  transform: translateX(100%) !important;
+  transition: all 0.3s ease !important;
+  backdrop-filter: blur(10px) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+  max-width: 300px !important;
+  word-wrap: break-word !important;
+}
+
+.digital-bookmark-notification.show {
+  transform: translateX(0) !important;
+}
+
+.digital-bookmark-notification.success {
+  background: rgba(76, 175, 80, 0.9) !important;
+  color: white !important;
+  border: 1px solid rgba(76, 175, 80, 0.3) !important;
+}
+
+.digital-bookmark-notification.info {
+  background: rgba(33, 150, 243, 0.9) !important;
+  color: white !important;
+  border: 1px solid rgba(33, 150, 243, 0.3) !important;
+}
+
+.digital-bookmark-notification.warning {
+  background: rgba(255, 193, 7, 0.9) !important;
+  color: #333 !important;
+  border: 1px solid rgba(255, 193, 7, 0.3) !important;
+}
+
+/* Animazioni */
+@keyframes pulse {
+  0% {
+    transform: scale(1) !important;
+    opacity: 1 !important;
+  }
+  50% {
+    transform: scale(1.1) !important;
+    opacity: 0.8 !important;
+  }
+  100% {
+    transform: scale(1) !important;
+    opacity: 1 !important;
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%) !important;
+    opacity: 0 !important;
+  }
+  100% {
+    transform: translateX(0) !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Compatibilità con dark mode */
+@media (prefers-color-scheme: dark) {
+  .digital-bookmark-notification.warning {
+    background: rgba(255, 193, 7, 0.9) !important;
+    color: #000 !important;
+  }
+}
+
+/* Responsive design per schermi piccoli */
+@media (max-width: 768px) {
+  .digital-bookmark-notification {
+    top: 10px !important;
+    right: 10px !important;
+    left: 10px !important;
+    max-width: none !important;
+    font-size: 13px !important;
+  }
+  
+  #digital-bookmark-indicator {
+    left: 5px !important;
+  }
+  
+  #digital-bookmark-indicator .bookmark-label {
+    font-size: 10px !important;
+  }
+}
