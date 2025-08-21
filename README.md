@@ -156,6 +156,7 @@ segnalibro-digitale/
 - [ ] Integrazione con bookmark browser
 - [ ] Statistiche di utilizzo
 - [ ] Temi personalizzabili
+- [ ] Maggiore compatibilità per ChatGPT
 - [ ] Esportazione/importazione segnalibri
 - [ ] Note personalizzate sui segnalibri
 - [ ] Sincronizzazione cross-device
