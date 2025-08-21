@@ -147,17 +147,18 @@ segnalibro-digitale/
 
 ## 📈 Roadmap
 
-### v1.1 (Prossima release):
-- [ ] Segnalibri multipli per pagina
-- [ ] Esportazione/importazione segnalibri
-- [ ] Note personalizzate sui segnalibri
-- [ ] Sincronizzazione cross-device
+### v2 (Prossima release):
+- [✅ ] Segnalibri multipli per pagina
 
-### v1.2:
+
+### v3:
 - [ ] Segnalibri condivisibili
 - [ ] Integrazione con bookmark browser
 - [ ] Statistiche di utilizzo
 - [ ] Temi personalizzabili
+- [ ] Esportazione/importazione segnalibri
+- [ ] Note personalizzate sui segnalibri
+- [ ] Sincronizzazione cross-device
 
 ## 🤝 Contribuire
 
