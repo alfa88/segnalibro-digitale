@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Segnalibro Digitale</title>
+  <title>Segnalibro Digitale v2.0</title>
   <style>
     body {
-      width: 320px;
-      min-height: 200px;
+      width: 350px;
+      min-height: 250px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 16px;
@@ -35,7 +35,7 @@
     .buttons {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
 
     .btn {
@@ -52,6 +52,11 @@
       gap: 8px;
     }
 
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     .btn-primary {
       background: rgba(255, 255, 255, 0.2);
       color: white;
@@ -59,7 +64,7 @@
       border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
-    .btn-primary:hover {
+    .btn-primary:hover:not(:disabled) {
       background: rgba(255, 255, 255, 0.3);
       transform: translateY(-1px);
     }
@@ -71,18 +76,18 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-    .btn-secondary:hover {
+    .btn-secondary:hover:not(:disabled) {
       background: rgba(255, 255, 255, 0.2);
     }
 
-    .btn-danger {
-      background: rgba(255, 107, 107, 0.2);
-      color: #ff6b6b;
-      border: 1px solid rgba(255, 107, 107, 0.3);
+    .btn-info {
+      background: rgba(33, 150, 243, 0.2);
+      color: #2196f3;
+      border: 1px solid rgba(33, 150, 243, 0.3);
     }
 
-    .btn-danger:hover {
-      background: rgba(255, 107, 107, 0.3);
+    .btn-info:hover:not(:disabled) {
+      background: rgba(33, 150, 243, 0.3);
       color: white;
     }
 
@@ -95,16 +100,84 @@
       backdrop-filter: blur(10px);
     }
 
-    .status.has-bookmark {
+    .status.has-bookmarks {
       background: rgba(76, 175, 80, 0.2);
       border: 1px solid rgba(76, 175, 80, 0.3);
       color: #4caf50;
     }
 
-    .status.no-bookmark {
+    .status.no-bookmarks {
       background: rgba(255, 193, 7, 0.2);
       border: 1px solid rgba(255, 193, 7, 0.3);
       color: #ffc107;
+    }
+
+    .status.error {
+      background: rgba(244, 67, 54, 0.2);
+      border: 1px solid rgba(244, 67, 54, 0.3);
+      color: #f44336;
+    }
+
+    .bookmarks-list {
+      margin-top: 12px;
+      max-height: 120px;
+      overflow-y: auto;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 6px;
+      padding: 8px;
+    }
+
+    .bookmark-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 8px;
+      margin: 4px 0;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      font-size: 11px;
+    }
+
+    .bookmark-info {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .bookmark-title {
+      font-weight: bold;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .bookmark-time {
+      opacity: 0.7;
+      font-size: 10px;
+    }
+
+    .bookmark-actions {
+      display: flex;
+      gap: 4px;
+    }
+
+    .bookmark-btn {
+      padding: 4px 8px;
+      border: none;
+      border-radius: 3px;
+      font-size: 10px;
+      cursor: pointer;
+      transition: all 0.1s ease;
+    }
+
+    .bookmark-btn.go {
+      background: rgba(76, 175, 80, 0.8);
+      color: white;
+    }
+
+    .bookmark-btn.delete {
+      background: rgba(244, 67, 54, 0.8);
+      color: white;
     }
 
     .shortcuts {
@@ -138,48 +211,59 @@
     .emoji {
       font-size: 16px;
     }
+
+    .version {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 10px;
+      opacity: 0.6;
+    }
   </style>
 </head>
 <body>
   <div class="header">
     <h1>📌 Segnalibro Digitale</h1>
-    <p>Naviga facilmente nelle pagine lunghe</p>
+    <p>Segnalibri multipli per navigazione avanzata</p>
   </div>
 
   <div class="buttons">
-    <button id="setBookmark" class="btn btn-primary">
-      <span class="emoji">📍</span>
-      Imposta Segnalibro Qui
+    <button id="addBookmark" class="btn btn-primary">
+      <span class="emoji">➕</span>
+      Aggiungi Segnalibro
     </button>
     
-    <button id="goToBookmark" class="btn btn-secondary">
+    <button id="navigateBookmarks" class="btn btn-secondary">
       <span class="emoji">🔄</span>
-      Vai al Segnalibro
+      Naviga Segnalibri
     </button>
     
-    <button id="deleteBookmark" class="btn btn-danger">
-      <span class="emoji">🗑️</span>
-      Elimina Segnalibro
+    <button id="showAllBookmarks" class="btn btn-info">
+      <span class="emoji">📋</span>
+      Mostra Tutti
     </button>
   </div>
 
-  <div id="status" class="status"></div>
+  <div id="status" class="status">Caricamento...</div>
+  
+  <div id="bookmarksList" class="bookmarks-list" style="display: none;"></div>
 
   <div class="shortcuts">
-    <h3>Scorciatoie</h3>
+    <h3>Scorciatoie v2.0</h3>
     <div class="shortcut-item">
-      <span>Imposta segnalibro</span>
+      <span>Aggiungi segnalibro</span>
       <span class="shortcut-key">Ctrl+M</span>
     </div>
     <div class="shortcut-item">
-      <span>Vai al segnalibro</span>
+      <span>Naviga segnalibri</span>
       <span class="shortcut-key">Ctrl+J</span>
     </div>
     <div class="shortcut-item">
-      <span>Elimina segnalibro</span>
+      <span>Mostra tutti</span>
       <span class="shortcut-key">Ctrl+Shift+M</span>
     </div>
   </div>
+
+  <div class="version">v2.0 - Segnalibri multipli + Chat AI</div>
 
   <script src="popup.js"></script>
 </body>

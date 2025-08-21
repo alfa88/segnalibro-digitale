@@ -1,12 +1,13 @@
 {
   "manifest_version": 3,
   "name": "Segnalibro Digitale",
-  "version": "1.0.0",
-  "description": "Crea ancore personalizzate nelle pagine web per navigazione rapida. Ideale per chat AI (ChatGPT, Claude, Gemini), documenti tecnici, articoli lunghi e pagine con indici. Usa Ctrl+M per impostare l'ancora e Ctrl+J per tornarci.",
+  "version": "2.0.0",
+  "description": "Crea ancore multiple personalizzate nelle pagine web. Compatibile con chat AI (ChatGPT, Claude, Gemini), documenti tecnici e pagine lunghe. Ctrl+M per aggiungere, Ctrl+J per navigare.",
   
   "permissions": [
     "activeTab",
-    "storage"
+    "storage",
+    "scripting"
   ],
   
   "host_permissions": [
@@ -20,16 +21,25 @@
   
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": [
+        "<all_urls>",
+        "*://chat.openai.com/*",
+        "*://claude.ai/*",
+        "*://gemini.google.com/*",
+        "*://bard.google.com/*",
+        "*://poe.com/*",
+        "*://character.ai/*"
+      ],
       "js": ["content.js"],
       "css": ["styles.css"],
-      "run_at": "document_end"
+      "run_at": "document_end",
+      "all_frames": true
     }
   ],
   
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Segnalibro Digitale",
+    "default_title": "Segnalibro Digitale - Ancore Multiple",
     "default_icon": {
       "16": "icons/icon16.png",
       "32": "icons/icon32.png",
@@ -46,17 +56,23 @@
   },
   
   "commands": {
-    "set-bookmark": {
+    "add-bookmark": {
       "suggested_key": {
         "default": "Ctrl+M"
       },
-      "description": "Imposta segnalibro nella posizione corrente"
+      "description": "Aggiungi nuovo segnalibro"
     },
-    "go-to-bookmark": {
+    "navigate-bookmarks": {
       "suggested_key": {
         "default": "Ctrl+J"
       },
-      "description": "Vai al segnalibro salvato"
+      "description": "Naviga tra i segnalibri"
+    },
+    "show-all-bookmarks": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+M"
+      },
+      "description": "Mostra tutti i segnalibri"
     }
   }
 }
