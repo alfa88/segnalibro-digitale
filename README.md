@@ -174,7 +174,6 @@ MIT License - vedi file LICENSE per dettagli.
 ## 🆘 Supporto
 
 - **Issues GitHub**: Per bug report e feature request
-- **Email**: [il-tuo-email] per supporto diretto
 - **Documentazione**: Consulta questo README per guide dettagliate
 
 ---
