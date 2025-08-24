@@ -2,268 +2,154 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Segnalibro Digitale v2.0</title>
+  <title>Segnalibro Digitale</title>
   <style>
     body {
-      width: 350px;
-      min-height: 250px;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       margin: 0;
-      padding: 16px;
+      padding: 12px;
+      min-width: 220px;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
     }
-
+    
     .header {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
-
-    .header h1 {
+    
+    .header h3 {
       margin: 0;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 600;
     }
-
-    .header p {
-      margin: 5px 0 0 0;
-      font-size: 12px;
+    
+    .header .version {
+      font-size: 11px;
       opacity: 0.8;
+      margin-top: 2px;
     }
-
-    .buttons {
+    
+    .button-group {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-    }
-
-    .btn {
-      padding: 12px 16px;
-      border: none;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       gap: 8px;
     }
-
-    .btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .btn-primary {
-      background: rgba(255, 255, 255, 0.2);
+    
+    button {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 8px;
+      border: none;
+      background: rgba(255,255,255,0.15);
       color: white;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.2s ease;
     }
-
-    .btn-primary:hover:not(:disabled) {
-      background: rgba(255, 255, 255, 0.3);
+    
+    button:hover {
+      background: rgba(255,255,255,0.25);
       transform: translateY(-1px);
     }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+    
+    button:active {
+      transform: translateY(0);
     }
-
-    .btn-secondary:hover:not(:disabled) {
-      background: rgba(255, 255, 255, 0.2);
+    
+    .btn-icon {
+      margin-right: 8px;
+      font-size: 14px;
     }
-
-    .btn-info {
-      background: rgba(33, 150, 243, 0.2);
-      color: #2196f3;
-      border: 1px solid rgba(33, 150, 243, 0.3);
+    
+    .btn-primary {
+      background: rgba(255,255,255,0.9);
+      color: #333;
     }
-
-    .btn-info:hover:not(:disabled) {
-      background: rgba(33, 150, 243, 0.3);
-      color: white;
+    
+    .btn-primary:hover {
+      background: white;
     }
-
-    .status {
-      margin-top: 16px;
-      padding: 12px;
-      border-radius: 6px;
-      font-size: 12px;
-      text-align: center;
-      backdrop-filter: blur(10px);
-    }
-
-    .status.has-bookmarks {
-      background: rgba(76, 175, 80, 0.2);
-      border: 1px solid rgba(76, 175, 80, 0.3);
-      color: #4caf50;
-    }
-
-    .status.no-bookmarks {
-      background: rgba(255, 193, 7, 0.2);
-      border: 1px solid rgba(255, 193, 7, 0.3);
-      color: #ffc107;
-    }
-
-    .status.error {
-      background: rgba(244, 67, 54, 0.2);
-      border: 1px solid rgba(244, 67, 54, 0.3);
-      color: #f44336;
-    }
-
-    .bookmarks-list {
-      margin-top: 12px;
-      max-height: 120px;
-      overflow-y: auto;
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 6px;
-      padding: 8px;
-    }
-
-    .bookmark-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 6px 8px;
-      margin: 4px 0;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 4px;
-      font-size: 11px;
-    }
-
-    .bookmark-info {
-      flex: 1;
-      overflow: hidden;
-    }
-
-    .bookmark-title {
-      font-weight: bold;
-      margin-bottom: 2px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .bookmark-time {
-      opacity: 0.7;
-      font-size: 10px;
-    }
-
-    .bookmark-actions {
-      display: flex;
-      gap: 4px;
-    }
-
-    .bookmark-btn {
-      padding: 4px 8px;
-      border: none;
-      border-radius: 3px;
-      font-size: 10px;
-      cursor: pointer;
-      transition: all 0.1s ease;
-    }
-
-    .bookmark-btn.go {
-      background: rgba(76, 175, 80, 0.8);
-      color: white;
-    }
-
-    .bookmark-btn.delete {
-      background: rgba(244, 67, 54, 0.8);
-      color: white;
-    }
-
+    
     .shortcuts {
-      margin-top: 16px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.2);
     }
-
-    .shortcuts h3 {
-      margin: 0 0 8px 0;
+    
+    .shortcuts-title {
       font-size: 12px;
-      text-transform: uppercase;
-      opacity: 0.8;
-      letter-spacing: 0.5px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      opacity: 0.9;
     }
-
-    .shortcut-item {
+    
+    .shortcut {
       display: flex;
       justify-content: space-between;
-      margin: 4px 0;
       font-size: 11px;
+      margin-bottom: 3px;
+      opacity: 0.8;
     }
-
+    
     .shortcut-key {
-      background: rgba(255, 255, 255, 0.2);
-      padding: 2px 6px;
-      border-radius: 4px;
       font-family: monospace;
-    }
-
-    .emoji {
-      font-size: 16px;
-    }
-
-    .version {
-      text-align: center;
-      margin-top: 12px;
-      font-size: 10px;
-      opacity: 0.6;
+      background: rgba(255,255,255,0.2);
+      padding: 1px 4px;
+      border-radius: 3px;
     }
   </style>
 </head>
 <body>
   <div class="header">
-    <h1>📌 Segnalibro Digitale</h1>
-    <p>Segnalibri multipli per navigazione avanzata</p>
+    <h3>📌 Segnalibro Digitale</h3>
+    <div class="version">v2.4</div>
   </div>
 
-  <div class="buttons">
-    <button id="addBookmark" class="btn btn-primary">
-      <span class="emoji">➕</span>
-      Aggiungi Segnalibro
+  <div class="button-group">
+    <button id="add" class="btn-primary">
+      <span class="btn-icon">➕</span>
+      Segnalibro rapido
     </button>
     
-    <button id="navigateBookmarks" class="btn btn-secondary">
-      <span class="emoji">🔄</span>
-      Naviga Segnalibri
+    <button id="addManual">
+      <span class="btn-icon">🎯</span>
+      Selezione manuale
     </button>
     
-    <button id="showAllBookmarks" class="btn btn-info">
-      <span class="emoji">📋</span>
-      Mostra Tutti
+    <button id="navigate">
+      <span class="btn-icon">➡️</span>
+      Naviga segnalibri
+    </button>
+    
+    <button id="showAll">
+      <span class="btn-icon">📑</span>
+      Mostra tutti
     </button>
   </div>
-
-  <div id="status" class="status">Caricamento...</div>
-  
-  <div id="bookmarksList" class="bookmarks-list" style="display: none;"></div>
 
   <div class="shortcuts">
-    <h3>Scorciatoie v2.0</h3>
-    <div class="shortcut-item">
-      <span>Aggiungi segnalibro</span>
+    <div class="shortcuts-title">Scorciatoie da tastiera:</div>
+    <div class="shortcut">
+      <span>Segnalibro rapido</span>
       <span class="shortcut-key">Ctrl+M</span>
     </div>
-    <div class="shortcut-item">
-      <span>Naviga segnalibri</span>
-      <span class="shortcut-key">Ctrl+J</span>
-    </div>
-    <div class="shortcut-item">
-      <span>Mostra tutti</span>
+    <div class="shortcut">
+      <span>Selezione manuale</span>
       <span class="shortcut-key">Ctrl+Shift+M</span>
     </div>
+    <div class="shortcut">
+      <span>Naviga</span>
+      <span class="shortcut-key">Ctrl+J</span>
+    </div>
+    <div class="shortcut">
+      <span>Mostra tutti</span>
+      <span class="shortcut-key">Ctrl+Shift+J</span>
+    </div>
   </div>
-
-  <div class="version">v2.0 - Segnalibri multipli + Chat AI</div>
 
   <script src="popup.js"></script>
 </body>

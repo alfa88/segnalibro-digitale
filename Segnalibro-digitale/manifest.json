@@ -1,45 +1,31 @@
 {
   "manifest_version": 3,
   "name": "Segnalibro Digitale",
-  "version": "2.0.0",
-  "description": "Crea ancore multiple personalizzate nelle pagine web. Compatibile con chat AI (ChatGPT, Claude, Gemini), documenti tecnici e pagine lunghe. Ctrl+M per aggiungere, Ctrl+J per navigare.",
-  
+  "version": "2.4.0",
+  "description": "Crea ancore multiple nelle pagine web con selezione manuale o automatica. Perfetto per chat AI. Ctrl+M rapido, Ctrl+Shift+M manuale.",
+
   "permissions": [
     "activeTab",
     "storage",
     "scripting"
   ],
-  
-  "host_permissions": [
-    "http://*/*",
-    "https://*/*"
-  ],
-  
+
   "background": {
     "service_worker": "background.js"
   },
-  
+
   "content_scripts": [
     {
-      "matches": [
-        "<all_urls>",
-        "*://chat.openai.com/*",
-        "*://claude.ai/*",
-        "*://gemini.google.com/*",
-        "*://bard.google.com/*",
-        "*://poe.com/*",
-        "*://character.ai/*"
-      ],
+      "matches": ["<all_urls>"],
       "js": ["content.js"],
       "css": ["styles.css"],
-      "run_at": "document_end",
-      "all_frames": true
+      "run_at": "document_end"
     }
   ],
-  
+
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Segnalibro Digitale - Ancore Multiple",
+    "default_title": "Segnalibro Digitale",
     "default_icon": {
       "16": "icons/icon16.png",
       "32": "icons/icon32.png",
@@ -47,32 +33,38 @@
       "128": "icons/icon128.png"
     }
   },
-  
+
   "icons": {
     "16": "icons/icon16.png",
     "32": "icons/icon32.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  
+
   "commands": {
     "add-bookmark": {
       "suggested_key": {
         "default": "Ctrl+M"
       },
-      "description": "Aggiungi nuovo segnalibro"
+      "description": "Segnalibro rapido"
+    },
+    "add-bookmark-manual": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+M"
+      },
+      "description": "Selezione manuale"
     },
     "navigate-bookmarks": {
       "suggested_key": {
         "default": "Ctrl+J"
       },
-      "description": "Naviga tra i segnalibri"
+      "description": "Naviga segnalibri"
     },
     "show-all-bookmarks": {
       "suggested_key": {
-        "default": "Ctrl+Shift+M"
+        "default": "Ctrl+Shift+J"
       },
-      "description": "Mostra tutti i segnalibri"
+      "description": "Mostra tutti"
     }
   }
 }
